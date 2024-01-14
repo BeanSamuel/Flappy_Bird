@@ -3,12 +3,12 @@ from object import Background, Pipe, Bird, Base
 
 def initial():
     
-    global WEIGHT, HEIGHT, screen, background, pipes_list, bird, score, score_font, base, system_running
+    global WIDTH, HEIGHT, screen, background, pipes_list, bird, score, score_font, base, system_running
     if system_running == False: return
 
     pygame.init()
-    WEIGHT,HEIGHT = 800,500
-    screen = pygame.display.set_mode((WEIGHT, HEIGHT))
+    WIDTH,HEIGHT = 800,500
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption('Flappy Bird')
     
     background = # 初始化Background物件
@@ -26,7 +26,7 @@ def initial():
 
 def start():
     
-    global WEIGHT, HEIGHT, screen, background, pipes_list, bird, score, score_font, base, system_running
+    global WIDTH, HEIGHT, screen, background, pipes_list, bird, score, score_font, base, system_running
     if system_running == False: return
     
     running = True
@@ -54,7 +54,7 @@ def start():
         screen.blit(score_surface, (10, 10))
         start_font = pygame.font.SysFont(None, 45)
         start_surface = start_font.render('Press Space to Start', True, (255, 255, 255))
-        start_rect = start_surface.get_rect(center = (WEIGHT*0.5, HEIGHT * 0.83))
+        start_rect = start_surface.get_rect(center = (WIDTH*0.5, HEIGHT * 0.83))
         screen.blit(start_surface, start_rect)
         pygame.display.update()
 
@@ -62,7 +62,7 @@ def start():
 
 def run():
     
-    global WEIGHT, HEIGHT, screen, background, pipes_list, bird, score, score_font, base, system_running
+    global WIDTH, HEIGHT, screen, background, pipes_list, bird, score, score_font, base, system_running
     if system_running == False: return
     
     bird.gravity = 0.03
@@ -87,7 +87,7 @@ def run():
 
 def game_over():
     
-    global WEIGHT, HEIGHT, screen, background, pipes_list, bird, score, score_font, base, system_running
+    global WIDTH, HEIGHT, screen, background, pipes_list, bird, score, score_font, base, system_running
     if system_running == False: return
     
     running = True
