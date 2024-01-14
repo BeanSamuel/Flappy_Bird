@@ -1,32 +1,34 @@
 import pygame
 from object import Background, Pipe, Bird, Base
 
-3 
-
 def initial():
+    
     global WEIGHT, HEIGHT, screen, background, pipes_list, bird, score, score_font, base, system_running
     if system_running == False: return
+
     pygame.init()
     WEIGHT,HEIGHT = 800,500
     screen = pygame.display.set_mode((WEIGHT, HEIGHT))
     pygame.display.set_caption('Flappy Bird')
     
-    background = Background(img_path='assets/background.png', location=(0, 0), screen_size=(WEIGHT, HEIGHT))
+    background = # 初始化Background物件
     
-    base = Base(img_path='assets/base.png', screen_size=(WEIGHT, HEIGHT))
+    base = # 初始化Base物件
 
     pipes_list = pygame.sprite.Group()
     pygame.time.set_timer(pygame.USEREVENT + 1, 2000)
 
-    bird_animation = ['assets/bird1.png', 'assets/bird2.png', 'assets/bird3.png']
-    bird = Bird(img_path=bird_animation, screen_size=(WEIGHT, HEIGHT))
+    bird_animation = [] # 填入Bird的所有圖片路徑
+    bird = # 初始化Bird物件
 
     score = 0
     score_font = pygame.font.SysFont(None, 36)
 
 def start():
+    
     global WEIGHT, HEIGHT, screen, background, pipes_list, bird, score, score_font, base, system_running
     if system_running == False: return
+    
     running = True
     while running:
         for event in pygame.event.get():
@@ -38,7 +40,7 @@ def start():
                 if event.key == pygame.K_SPACE:
                     running = False
                     break
-
+        
         background.draw(screen)
         bird.update()
         bird.draw(screen)
@@ -59,73 +61,49 @@ def start():
 
 
 def run():
+    
     global WEIGHT, HEIGHT, screen, background, pipes_list, bird, score, score_font, base, system_running
     if system_running == False: return
+    
     bird.gravity = 0.03
     running = True
     while running:
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-                system_running = False
-                break
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    bird.jump()
+            # 按鍵指令的條件判斷
+            
             if event.type == pygame.USEREVENT + 1:
-                new_pipe = Pipe(img_path='assets/pipe.png', screen_size=(WEIGHT, HEIGHT))
-                new_pipe.generate_pipe()
+                # 固定時間產生Pipe
                 pipes_list.add(new_pipe)
-
-        background.draw(screen)
-        bird.update()
-        bird.draw(screen)
-        base.update()
-        base.draw(screen)
+        #更新background
+        #更新bird
+        #更新base
 
         for pipe in pipes_list:
-            if ( bird.rect.colliderect(pipe.top_pipe_rect) or bird.rect.colliderect(pipe.bottom_pipe_rect)):
-                running = False
-                break
-            elif not pipe.score_counted and bird.rect.left > pipe.top_pipe_rect.right and bird.rect.left > pipe.bottom_pipe_rect.right:
-                score += 1
-                pipe.score_counted = True
-            pipe.update()
-            pipe.draw(screen)
-        score_surface = score_font.render(f'Score: {score}', True, (255, 255, 255))
-        screen.blit(score_surface, (10, 10))
-        pygame.display.update()
-
-
+            # 判斷bird是否撞到pipe
+            # 判斷bird是否超過pipe並加分
+            # 更新pipe
+        #顯示score
+        #更新畫面
 
 def game_over():
+    
     global WEIGHT, HEIGHT, screen, background, pipes_list, bird, score, score_font, base, system_running
     if system_running == False: return
+    
     running = True
     while running:
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                system_running = False
-                running = False
-            elif event.type == pygame.KEYDOWN:
-                running = False
+            # 按鍵指令的條件判斷
+        
+        #更新background
+        #更新pipe
+        #更新bird
+        #更新base
 
-        background.draw(screen)
-        for pipe in pipes_list:
-            pipe.draw(screen)
-        bird.draw(screen)
-        base.draw(screen)
+        #顯示GameOver
+        #顯示Final Score
 
-        game_over_font = pygame.font.SysFont(None, 45)
-        game_over_surface = game_over_font.render('Game Over', True, (255, 255, 255))
-        game_over_rect = game_over_surface.get_rect(center=(WEIGHT * 0.5, HEIGHT * 0.5))
-        screen.blit(game_over_surface, game_over_rect)
-
-        score_surface = score_font.render(f'Final Score: {score}', True, (255, 255, 255))
-        score_rect = score_surface.get_rect(center=(WEIGHT * 0.5, HEIGHT * 0.6))
-        screen.blit(score_surface, score_rect)
-
-        pygame.display.update()
+        #更新畫面
 
 
 
